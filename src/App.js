@@ -38,6 +38,8 @@ function App() {
   ]);
 
   const [search, setSearch] = useState('');
+  const [postTitle, setPostTitle] = useState('');
+  const [postBody, setPostBody] = useState('');
 
   const history = useHistory();
 
@@ -46,6 +48,8 @@ function App() {
     setPosts(postsList);
     history.push('/');
   };
+
+  const handleSubmit = () => {};
 
   return (
     <div className='App'>
@@ -56,7 +60,13 @@ function App() {
           <Home posts={posts} />
         </Route>
         <Route exact path='/post'>
-          <NewPost />
+          <NewPost
+            handleSubmit={handleSubmit}
+            postTitle={postTitle}
+            setPostTitle={setPostTitle}
+            postBody={postBody}
+            setPostBody={setPostBody}
+          />
         </Route>
         <Route path='/post/:id'>
           <PostPage posts={posts} handleDelete={handleDelete} />
