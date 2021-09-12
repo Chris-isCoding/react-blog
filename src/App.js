@@ -8,6 +8,7 @@ import About from './components/About';
 import Missing from './components/Missing';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -49,7 +50,22 @@ function App() {
     history.push('/');
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+    const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
+    const newPost = {
+      id,
+      title: postTitle,
+      body: postBody,
+      datetime: datetime,
+    };
+    const allPosts = [...posts, newPost];
+    setPosts(allPosts);
+    setPostTitle('');
+    setPostBody('');
+    history.push('/');
+  };
 
   return (
     <div className='App'>
