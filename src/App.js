@@ -50,7 +50,7 @@ function App() {
           <NewPost />
         </Route>
         <Route path='/post/:id'>
-          <PostPage />
+          <PostPage posts={posts} />
         </Route>
         <Route path='/about' component={About} />
         <Route path='*' component={Missing} />
