@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 function App() {
   return (
     <div className='App'>
-      <Header />
+      <Header title='React JS Blog' />
       <Nav />
       <Switch>
         <Route exact path='/'>
