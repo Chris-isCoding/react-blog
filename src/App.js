@@ -13,12 +13,21 @@ import { format } from 'date-fns';
 
 function App() {
   const [posts, setPosts] = useState(SAMPLE_POSTS);
-
   const [search, setSearch] = useState('');
+  const [searchResults, setSearchResults] = useState('');
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
 
   const history = useHistory();
+
+  useEffect(() => {
+    const filteredPosts = posts.filter(
+      (post) =>
+        post.body.toLowerCase().includes(search.toLowerCase()) ||
+        post.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchResults(filteredPosts.reverse());
+  }, [posts, search]);
 
   const handleDelete = (id) => {
     const postsList = posts.filter((post) => post.id !== id);
@@ -49,7 +58,7 @@ function App() {
       <Nav search={search} setSearch={setSearch} />
       <Switch>
         <Route exact path='/'>
-          <Home posts={posts} />
+          <Home posts={searchResults} />
         </Route>
         <Route exact path='/post'>
           <NewPost
