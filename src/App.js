@@ -78,10 +78,15 @@ function App() {
     }
   };
 
-  const handleDelete = (id) => {
-    const postsList = posts.filter((post) => post.id !== id);
-    setPosts(postsList);
-    history.push('/');
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/posts/${id}`);
+      const postsList = posts.filter((post) => post.id !== id);
+      setPosts(postsList);
+      history.push('/');
+    } catch (error) {
+      console.log(`Something went wrong: ${error.message}`);
+    }
   };
 
   return (
