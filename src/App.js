@@ -6,6 +6,7 @@ import NewPost from './components/NewPost';
 import PostPage from './components/PostPage';
 import About from './components/About';
 import Missing from './components/Missing';
+import EditPost from './components/EditPost';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
@@ -17,6 +18,8 @@ function App() {
   const [searchResults, setSearchResults] = useState('');
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
+  const [editTitle, setEditTitle] = useState('');
+  const [editBody, setEditBody] = useState('');
 
   const history = useHistory();
 
@@ -78,6 +81,30 @@ function App() {
     }
   };
 
+  const handleEdit = async (id) => {
+    const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
+    const editedPost = {
+      id,
+      datetime: datetime,
+      title: editTitle,
+      body: editBody,
+    };
+
+    try {
+      const response = await api.put(`/posts/${id}`, editedPost);
+      setPosts(
+        posts.map((post) =>
+          post.id === id ? { ...response.data } : post
+        )
+      );
+      setEditTitle('');
+      setEditBody('');
+      history.push('/');
+    } catch (error) {
+      console.log(`Something went wrong: ${error.message}`);
+    }
+  };
+
   const handleDelete = async (id) => {
     try {
       await api.delete(`/posts/${id}`);
@@ -104,6 +131,16 @@ function App() {
             setPostTitle={setPostTitle}
             postBody={postBody}
             setPostBody={setPostBody}
+          />
+        </Route>
+        <Route path='/edit/:id'>
+          <EditPost
+            posts={posts}
+            handleEdit={handleEdit}
+            editTitle={editTitle}
+            setEditTitle={setEditTitle}
+            editBody={editBody}
+            setEditBody={setEditBody}
           />
         </Route>
         <Route path='/post/:id'>
