@@ -11,6 +11,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import api from './api/posts.js';
+import useWindowSize from './hooks/useWindowSize';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -22,6 +23,7 @@ function App() {
   const [editBody, setEditBody] = useState('');
 
   const history = useHistory();
+  const { width } = useWindowSize();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -118,7 +120,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Header title='React JS Blog' />
+      <Header title='React JS Blog' width={width} />
       <Nav search={search} setSearch={setSearch} />
       <Switch>
         <Route exact path='/'>
