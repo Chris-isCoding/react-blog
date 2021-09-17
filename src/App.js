@@ -24,33 +24,13 @@ function App() {
 
   const history = useHistory();
   const { width } = useWindowSize();
+  const { data, fetchError, isLoading } = useAxiosFetch(
+    'http://localhost:3500/posts'
+  );
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await api.get('/posts');
-        setPosts(response.data);
-      } catch (error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error:', error.message);
-        }
-        console.log(error.config);
-      }
-    };
-    fetchPosts();
-  }, []);
+    setPosts(data);
+  }, [data]);
 
   useEffect(() => {
     const filteredPosts = posts.filter(
@@ -124,7 +104,11 @@ function App() {
       <Nav search={search} setSearch={setSearch} />
       <Switch>
         <Route exact path='/'>
-          <Home posts={searchResults} />
+          <Home
+            posts={searchResults}
+            fetchError={fetchError}
+            isLoading={isLoading}
+          />
         </Route>
         <Route exact path='/post'>
           <NewPost
