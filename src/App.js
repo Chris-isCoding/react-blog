@@ -25,7 +25,6 @@ function App() {
   const [editBody, setEditBody] = useState('');
 
   const history = useHistory();
-  const { width } = useWindowSize();
   const { data, fetchError, isLoading } = useAxiosFetch(
     'http://localhost:3500/posts'
   );
@@ -103,7 +102,7 @@ function App() {
   return (
     <div className='App'>
       <DataProvider>
-        <Header title='React JS Blog' width={width} />
+        <Header title='React JS Blog' />
         <Nav search={search} setSearch={setSearch} />
         <Switch>
           <Route exact path='/'>
