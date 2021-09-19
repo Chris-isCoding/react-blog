@@ -11,7 +11,6 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import api from './api/posts.js';
-import useWindowSize from './hooks/useWindowSize';
 import useAxiosFetch from './hooks/useAxiosFetch';
 import { DataProvider } from './context/DataContext';
 
@@ -103,14 +102,10 @@ function App() {
     <div className='App'>
       <DataProvider>
         <Header title='React JS Blog' />
-        <Nav search={search} setSearch={setSearch} />
+        <Nav />
         <Switch>
           <Route exact path='/'>
-            <Home
-              posts={searchResults}
-              fetchError={fetchError}
-              isLoading={isLoading}
-            />
+            <Home />
           </Route>
           <Route exact path='/post'>
             <NewPost

@@ -95,6 +95,11 @@ const DataProvider = ({ children }) => {
     <DataContext.Provider
       value={{
         width,
+        search,
+        setSearch,
+        searchResults,
+        fetchError,
+        isLoading,
       }}
     >
       {children}
