@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import api from '../api/posts';
+import { format } from 'date-fns';
 import { DataContext } from '../context/DataContext';
 
 const NewPost = () => {
-  const { posts, setPosts, format } = useContext(DataContext);
+  const { posts, setPosts } = useContext(DataContext);
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
 
