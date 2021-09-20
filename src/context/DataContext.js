@@ -55,17 +55,6 @@ const DataProvider = ({ children }) => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      api.delete(`/posts/${id}`);
-      const postsList = posts.filter((post) => post.id !== id);
-      setPosts(postsList);
-      history.push('/');
-    } catch (error) {
-      console.log(`Something went wrong: ${error.message}`);
-    }
-  };
-
   return (
     <DataContext.Provider
       value={{
@@ -76,7 +65,6 @@ const DataProvider = ({ children }) => {
         isLoading,
         posts,
         setPosts,
-        handleDelete,
         handleEdit,
       }}
     >
