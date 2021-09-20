@@ -10,8 +10,7 @@ const DataProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [postTitle, setPostTitle] = useState('');
-  const [postBody, setPostBody] = useState('');
+
   const [editTitle, setEditTitle] = useState('');
   const [editBody, setEditBody] = useState('');
   const history = useHistory();
@@ -31,28 +30,6 @@ const DataProvider = ({ children }) => {
     );
     setSearchResults(filteredPosts.reverse());
   }, [posts, search]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
-    const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
-    const newPost = {
-      id,
-      title: postTitle,
-      body: postBody,
-      datetime: datetime,
-    };
-    try {
-      const response = await api.post('/posts', newPost);
-      const allPosts = [...posts, response.data];
-      setPosts(allPosts);
-      setPostTitle('');
-      setPostBody('');
-      history.push('/');
-    } catch (error) {
-      console.log(`Something went wrong: ${error.message}`);
-    }
-  };
 
   const handleEdit = async (id) => {
     const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
@@ -97,11 +74,6 @@ const DataProvider = ({ children }) => {
         searchResults,
         fetchError,
         isLoading,
-        handleSubmit,
-        postTitle,
-        setPostTitle,
-        postBody,
-        setPostBody,
         posts,
         handleDelete,
         handleEdit,
