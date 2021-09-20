@@ -41,28 +41,6 @@ function App() {
     setSearchResults(filteredPosts.reverse());
   }, [posts, search]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
-    const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
-    const newPost = {
-      id,
-      title: postTitle,
-      body: postBody,
-      datetime: datetime,
-    };
-    try {
-      const response = await api.post('/posts', newPost);
-      const allPosts = [...posts, response.data];
-      setPosts(allPosts);
-      setPostTitle('');
-      setPostBody('');
-      history.push('/');
-    } catch (error) {
-      console.log('Something went wrong:', error.message);
-    }
-  };
-
   const handleEdit = async (id) => {
     const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
     const editedPost = {
@@ -104,18 +82,9 @@ function App() {
         <Header title='React JS Blog' />
         <Nav />
         <Switch>
-          <Route exact path='/'>
-            <Home />
-          </Route>
-          <Route exact path='/post'>
-            <NewPost
-              handleSubmit={handleSubmit}
-              postTitle={postTitle}
-              setPostTitle={setPostTitle}
-              postBody={postBody}
-              setPostBody={setPostBody}
-            />
-          </Route>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/post' component={NewPost} />
+
           <Route path='/edit/:id'>
             <EditPost
               posts={posts}
