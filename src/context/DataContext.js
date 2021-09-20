@@ -75,6 +75,7 @@ const DataProvider = ({ children }) => {
         fetchError,
         isLoading,
         posts,
+        setPosts,
         handleDelete,
         handleEdit,
       }}
