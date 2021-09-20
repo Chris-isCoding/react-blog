@@ -85,10 +85,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/post' component={NewPost} />
           <Route path='/edit/:id' component={EditPost} />
-
-          <Route path='/post/:id'>
-            <PostPage posts={posts} handleDelete={handleDelete} />
-          </Route>
+          <Route path='/post/:id' component={PostPage} />
           <Route path='/about' component={About} />
           <Route path='*' component={Missing} />
         </Switch>
