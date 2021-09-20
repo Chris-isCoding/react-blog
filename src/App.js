@@ -84,17 +84,8 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/post' component={NewPost} />
+          <Route path='/edit/:id' component={EditPost} />
 
-          <Route path='/edit/:id'>
-            <EditPost
-              posts={posts}
-              handleEdit={handleEdit}
-              editTitle={editTitle}
-              setEditTitle={setEditTitle}
-              editBody={editBody}
-              setEditBody={setEditBody}
-            />
-          </Route>
           <Route path='/post/:id'>
             <PostPage posts={posts} handleDelete={handleDelete} />
           </Route>
