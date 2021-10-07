@@ -13,7 +13,7 @@ const NewPost = () => {
   const setPostTitle = useStoreActions((actions) => actions.setPostTitle);
   const setPostBody = useStoreActions((actions) => actions.setPostBody);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
     const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');

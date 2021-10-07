@@ -16,7 +16,7 @@ const EditPost = () => {
   const getPostById = useStoreState((state) => state.getPostById);
   const post = getPostById(id);
 
-  const handleEdit = async (id) => {
+  const handleEdit = (id) => {
     const datetime = format(new Date(), 'MMMM dd, yyyy HH:mm:ss');
     const editedPost = {
       id,
